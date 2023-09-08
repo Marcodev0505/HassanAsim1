@@ -1,0 +1,14 @@
+from audiocraft.models import musicgen
+from audiocraft.utils.notebook import display_audio
+import torchfrom audiocraft.data.audio import audio_write
+# | model types are => small, medium, melody, large |
+# | size of models are => 300M, 1.5B, 1.5B, 3.3B |
+model = musicgen.MusicGen.get_pretrained('large', device='cuda')
+print(model)
+model.set_generation_params(duration=60) # this will generate 60 seconds of audio.
+model.set_generation_params(duration=60)
+res = model.generate( [ 'Jingle bell tune with violin and piano' ], progress=True)
+print(res)
+# This will show the music controls on the colab
+res = model.generate_unconditional( num_samples=1, progress=True)
+# this will show the music controls on the screendisplay_audio(res, 16000)
